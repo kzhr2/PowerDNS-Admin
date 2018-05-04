@@ -11,8 +11,8 @@ services:
     container_name: powerdns-admin
     deploy:
       resources:
-        mem_limit: 256M
-        memswap_limit: 256M
+        limits:
+          memory: 256M
     ports:
       - "9191:9191"
     volumes:
@@ -42,8 +42,8 @@ services:
     container_name: powerdns-admin-mysql
     deploy:
       resources:
-        mem_limit: 256M
-        memswap_limit: 256M
+        limits:
+          memory: 256M
     ports:
       - "3306:3306"
     networks:
@@ -86,8 +86,8 @@ services:
     container_name: ${PDNS_DB_HOST}
     deploy:
       resources:
-        mem_limit: 256M
-        memswap_limit: 256M
+        limits:
+          memory: 256M
     ports:
       - "3307:3306"
     networks:
