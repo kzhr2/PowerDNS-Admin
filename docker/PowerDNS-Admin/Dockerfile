@@ -1,5 +1,5 @@
 FROM ubuntu:latest
-MAINTAINER Khanh Ngo "ngokhanhit@gmail.com"
+MAINTAINER Kazuhiro Takaya "github@freelinech.com"
 ARG ENVIRONMENT=development
 ENV ENVIRONMENT=${ENVIRONMENT}
 

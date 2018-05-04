@@ -1,4 +1,4 @@
-version: "2.1"
+version: '3.0'
 
 services:
   powerdns-admin:
@@ -14,8 +14,8 @@ services:
     ports:
       - "9191:9191"
     volumes:
-      - .:/powerdns-admin/
-      - "./configs/${ENVIRONMENT}.py:/powerdns-admin/config.py"
+      - /etc/localtime:/etc/localtime:ro
+      - powerdns-admin-home:/powerdns-admin/
     logging:
       driver: json-file
       options:
@@ -48,6 +48,9 @@ services:
       - MYSQL_DATABASE=${PDA_DB_NAME}
       - MYSQL_USER=${PDA_DB_USER}
       - MYSQL_PASSWORD=${PDA_DB_PASSWORD}
+    volumes:
+      - powerdns-admin-mysql-conf:/etc/mysql/conf.d
+      - powerdns-admin-mysql-data:/var/lib/mysql
     healthcheck:
       test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
       timeout: 10s
@@ -67,6 +70,8 @@ services:
       - MYSQL_PASS=${PDNS_DB_PASSWORD}
       - PDNS_API_KEY=${PDNS_API_KEY}
       - PDNS_WEBSERVER_ALLOW_FROM=${PDNS_WEBSERVER_ALLOW_FROM}
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
     depends_on:
       pdns-mysql:
         condition: service_healthy
@@ -85,6 +90,9 @@ services:
       - MYSQL_DATABASE=${PDNS_DB_NAME}
       - MYSQL_USER=${PDNS_DB_USER}
       - MYSQL_PASSWORD=${PDNS_DB_PASSWORD}
+    volumes:
+      - pdns-mysql-conf:/etc/mysql/conf.d
+      - pdns-mysql-data:/var/lib/mysql
     healthcheck:
       test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
       timeout: 10s
@@ -94,4 +102,8 @@ networks:
   default:
 
 volumes:
-  powerdns-mysql-data:
+  powerdns-admin-home:
+  powerdns-admin-mysql-conf:
+  powerdns-admin-mysql-data:
+  pdns-mysql-conf:
+  pdns-mysql-data:
