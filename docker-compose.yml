@@ -9,8 +9,10 @@ services:
         - ENVIRONMENT=${ENVIRONMENT}
     image: powerdns-admin
     container_name: powerdns-admin
-    mem_limit: 256M
-    memswap_limit: 256M
+    deploy:
+      resources:
+        mem_limit: 256M
+        memswap_limit: 256M
     ports:
       - "9191:9191"
     volumes:
@@ -38,8 +40,10 @@ services:
     image: mysql/mysql-server:5.7
     hostname: ${PDA_DB_HOST}
     container_name: powerdns-admin-mysql
-    mem_limit: 256M
-    memswap_limit: 256M
+    deploy:
+      resources:
+        mem_limit: 256M
+        memswap_limit: 256M
     ports:
       - "3306:3306"
     networks:
@@ -80,8 +84,10 @@ services:
     image: mysql/mysql-server:5.7
     hostname: ${PDNS_DB_HOST}
     container_name: ${PDNS_DB_HOST}
-    mem_limit: 256M
-    memswap_limit: 256M
+    deploy:
+      resources:
+        mem_limit: 256M
+        memswap_limit: 256M
     ports:
       - "3307:3306"
     networks:
