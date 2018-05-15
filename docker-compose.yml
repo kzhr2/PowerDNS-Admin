@@ -9,6 +9,7 @@ services:
         - ENVIRONMENT=${ENVIRONMENT}
     image: powerdns-admin
     container_name: powerdns-admin
+    restart: always
     deploy:
       resources:
         limits:
@@ -40,6 +41,7 @@ services:
     image: mysql/mysql-server:5.7
     hostname: ${PDA_DB_HOST}
     container_name: powerdns-admin-mysql
+    restart: always
     deploy:
       resources:
         limits:
@@ -62,6 +64,7 @@ services:
 
   pdns-server:
     image: psitrax/powerdns
+    restart: always
     hostname: ${PDNS_HOST}
     ports:
       - "53:53"
@@ -82,6 +85,7 @@ services:
 
   pdns-mysql:
     image: mysql/mysql-server:5.7
+    restart: always
     hostname: ${PDNS_DB_HOST}
     container_name: ${PDNS_DB_HOST}
     deploy:
